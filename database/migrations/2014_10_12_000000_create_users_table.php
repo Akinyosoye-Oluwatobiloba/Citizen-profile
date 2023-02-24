@@ -1,0 +1,46 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        if (!Schema::hasTable('users')) {
+            Schema::create('users', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->string('email')->unique();
+                $table->timestamp('email_verified_at')->nullable();
+                $table->string('password');
+                $table->rememberToken();
+                $table->timestamps();
+            });
+    }
+       
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('users');
+    }
+};
+
+
+
+// Create and run the migration files and populate tables with few data for NPC
+// database.
+// • Users: id, name, email, password, {timestamp}
+// • States: id, name, {timestamp}
+// • LGAs: id, name, state id, {timestamp}
+// • Wards: id, name, lga id, {timestamp}
+// • Citizens: – id, full name, gender, address, phone, ward id, {timestamp}
+// Note: you can create at least 10 records for State, LGA, Ward, Citizen
